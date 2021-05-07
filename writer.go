@@ -2,8 +2,8 @@ package redbuffer
 
 import (
 	"bytes"
-	"fmt"
 	"io"
+	"strconv"
 )
 
 type Writer struct {
@@ -41,9 +41,10 @@ func joinColors(cc []Color) (b []byte) {
 	if len(cc) == 0 {
 		return
 	}
-	fmt.Fprint(cb, cc[0])
+	cb.WriteString(strconv.Itoa(int(cc[0])))
 	for _, c := range cc[1:] {
-		fmt.Fprint(cb, ";", c)
+		cb.WriteByte(';')
+		cb.WriteString(strconv.Itoa(int(c)))
 	}
 	return
 }
